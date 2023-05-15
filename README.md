@@ -1,3 +1,12 @@
+This program is to categorize patients based the gene expression of gene of interest (ex. MYC). 
+Particurally, this creates 2 cohorts of patients ("high" and "low") by using median. 
+
+gene-median-spliter.ipynb arg1 arg2 arg3 
+
+arg1: input matrix (ex. /sbgenomics/project-files/downsyndrome-gene-counts-rsem-expected_count-collapsed.tsv)
+arg2: output matrix of "high" patients (ex. "/sbgenomics/output-files/downsyndrome_testhigh.csv")
+arg3: output matrix of "low" patients (ex. "/sbgenomics/output-files/downsyndrome_testlow.csv")
+
 Build a Container for the gene-median-splitter-docker
 
 Steps to build this docker container.
