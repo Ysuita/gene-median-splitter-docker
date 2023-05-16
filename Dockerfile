@@ -12,13 +12,13 @@ RUN apt-get update && apt-get install -y \
 RUN R -e "install.packages(c('dplyr', 'ggplot2'), repos = 'https://cloud.r-project.org/')"
 
 # Copy your R script to the Docker image
-ADD ./your-script-name.R /usr/local/bin/
+ADD ./MycHighLow.R /usr/local/bin/
 
 # Set the working directory
 WORKDIR /app
 
 # Run your R script
-RUN chmod +x /usr/local/bin/your-script-name.R
+RUN chmod +x /usr/local/bin/MycHighLow.R
 
 #
 # Jupytext can be used to convert this to a a notebook
