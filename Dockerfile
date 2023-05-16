@@ -1,15 +1,24 @@
-# Full contents of Dockerfile
-FROM rocker/tidyverse
-LABEL description="Base docker image with tidyverse and hence R and util libraries"
-ARG ENV_NAME="gmsd"
+# Use an existing R Docker image as the base
+FROM rocker/r-ver:4.1.0
+LABEL description="Base docker image with dplyr and ggplot2"
 
-# Install dependencies if any needed -- this is a template
-# Since our base image is an R docker base we will use BiocManager install
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    libxml2-dev \
+    libcurl4-openssl-dev \
+    libssl-dev
 
-RUN apt-get update && \ 
-    R -e "install.packages(c('BiocManager'), repos='https://cloud.r-project.org/');BiocManager::install('package-name-here')" && \
-    apt-get clean -y
+# Install required R packages
+RUN R -e "install.packages(c('dplyr', 'ggplot2'), repos = 'https://cloud.r-project.org/')"
 
+# Copy your R script to the Docker image
+ADD ./your-script-name.R /usr/local/bin/
+
+# Set the working directory
+WORKDIR /app
+
+# Run your R script
+RUN chmod +x /usr/local/bin/your-script-name.R
 
 #
 # Jupytext can be used to convert this to a a notebook
@@ -21,8 +30,7 @@ RUN apt-get update && \
 # an accessible location for execution at the command line with
 # the docker file
 #
-ADD ./your-script-name.R /usr/local/bin/
 
-RUN chmod +x /usr/local/bin/your-script-name.R
+
 
 
